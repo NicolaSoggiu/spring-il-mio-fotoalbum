@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="topNavbar(area)" class="navbar navbar-expand-lg bg-secondary navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/photos}">HomePage </a><div><img src="/logo.jpeg" alt="" style="height:50px"></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse ps-4" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:classAppend="${area == 'photos' ? 'active' : ''}"
+                       th:href="@{/photos}">Photos
+                    </a>
+                </li>
+            </ul >
+        </div>
+    </div>
+</nav>
+</body>
+</html>
