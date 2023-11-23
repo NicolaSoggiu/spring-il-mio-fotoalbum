@@ -22,6 +22,8 @@ public class Photo {
     private Boolean visible = false;
     @CreationTimestamp
     private LocalDate createdAt;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Category> categories;
 
     public Integer getId() {
         return id;
@@ -69,5 +71,13 @@ public class Photo {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
