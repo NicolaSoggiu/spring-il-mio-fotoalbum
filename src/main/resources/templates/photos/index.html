@@ -28,6 +28,14 @@
                             class="fa-solid fa-book"></i></a>
                         <a class="btn btn-secondary" th:href="@{/photos/edit/{id}(id=*{id})}" title="edit">
                             <i class="fa-solid fa-pen-to-square"></i></a>
+                        <form
+                                method="POST"
+                                th:action="@{/photos/delete/{id}(id=*{id})}"
+                                onsubmit="return confirm('Are you sure?')"
+                        >
+                            <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </tbody>

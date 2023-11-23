@@ -51,4 +51,8 @@ public class PhotoService {
         photoToEdit.setCategories(photo.getCategories());
         return photoRepository.save(photoToEdit);
     }
+
+    public void deletePhoto(Integer id) {
+        photoRepository.deleteById(id);
+    }
 }
