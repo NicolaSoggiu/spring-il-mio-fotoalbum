@@ -3,7 +3,7 @@
 <head th:insert="fragments/resources :: headResources('Photos List')"></head>
     <body>
     <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
-    <div class="container" th:object="${photo}">
+    <div class="container-fluid" th:object="${photo}">
         <div class="d-flex mt-5">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" th:src="*{url}" alt="url">
