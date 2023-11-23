@@ -4,6 +4,7 @@
     <body>
     <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
     <div class="container-fluid" th:object="${photo}">
+        <h1 class="m-5" th:text="*{title}"></h1>
         <div class="d-flex mt-5">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" th:src="*{url}" alt="url">

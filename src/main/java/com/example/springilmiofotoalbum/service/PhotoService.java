@@ -1,5 +1,6 @@
 package com.example.springilmiofotoalbum.service;
 
+import com.example.springilmiofotoalbum.exception.PhotoNameUniqueException;
 import com.example.springilmiofotoalbum.exception.PhotoNotFoundException;
 import com.example.springilmiofotoalbum.model.Photo;
 import com.example.springilmiofotoalbum.repository.PhotoRepository;
@@ -34,11 +35,20 @@ public class PhotoService {
         }
     }
 
-    public Photo createPhoto(Photo photo) throws RuntimeException {
+    public Photo createPhoto(Photo photo) throws PhotoNameUniqueException {
         try {
             return photoRepository.save(photo);
         } catch (RuntimeException e) {
-            throw new RuntimeException();
+            throw new PhotoNameUniqueException("Photo with this name already exist!");
         }
+    }
+
+    public Photo editPhoto(Photo photo) throws PhotoNotFoundException {
+        Photo photoToEdit = getPhotoById(photo.getId());
+        photoToEdit.setTitle(photo.getTitle());
+        photoToEdit.setDescription(photo.getDescription());
+        photoToEdit.setUrl(photo.getUrl());
+        photoToEdit.setCategories(photo.getCategories());
+        return photoRepository.save(photoToEdit);
     }
 }

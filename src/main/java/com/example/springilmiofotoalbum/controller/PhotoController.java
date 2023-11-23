@@ -1,5 +1,6 @@
 package com.example.springilmiofotoalbum.controller;
 
+import com.example.springilmiofotoalbum.exception.PhotoNameUniqueException;
 import com.example.springilmiofotoalbum.exception.PhotoNotFoundException;
 import com.example.springilmiofotoalbum.model.Photo;
 import com.example.springilmiofotoalbum.service.CategoryService;
@@ -60,6 +61,32 @@ public class PhotoController {
             return "redirect:/photos/show/" + savedPhoto.getId();
         } catch (RuntimeException e) {
             throw new RuntimeException();
+        }
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        try {
+            model.addAttribute("photo", photoService.getPhotoById(id));
+            model.addAttribute("categoryList", categoryService.getAll());
+            return "photos/form";
+        } catch (PhotoNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String doEdit(@PathVariable Integer id,
+                         @Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryService.getAll());
+            return "photos/form";
+        }
+        try {
+            Photo savedPhoto = photoService.editPhoto(formPhoto);
+            return "redirect:/photos/show/" + savedPhoto.getId();
+        } catch (PhotoNameUniqueException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }

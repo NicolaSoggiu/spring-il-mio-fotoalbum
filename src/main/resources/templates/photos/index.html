@@ -23,9 +23,11 @@
                     <td th:text="*{title}"></td>
                     <td th:text="*{description}"></td>
                     <td><img class="h-25 w-25" th:src="*{url}"></td>
-                    <td>
+                    <td class="d-flex">
                         <a class="btn btn-secondary" th:href="@{/photos/show/{id}(id=*{id})}" title="details"><i
-                                class="fa-solid fa-book"></i></a>
+                            class="fa-solid fa-book"></i></a>
+                        <a class="btn btn-secondary" th:href="@{/photos/edit/{id}(id=*{id})}" title="edit">
+                            <i class="fa-solid fa-pen-to-square"></i></a>
                     </td>
                 </tr>
             </tbody>

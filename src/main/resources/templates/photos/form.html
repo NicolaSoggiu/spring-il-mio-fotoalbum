@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/resources :: headResources('Create Photo')}"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="isEdit=${photo.id != null}">
+<head th:insert="fragments/resources :: headResources(${isEdit ? 'Edit Photo' : 'Create Photo'})"></head>
 <body>
 <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
 <div class="container">
-    <h1>Create Photo</h1>
+    <h1 th:text="${isEdit ? 'Edit Photo' : 'Create Photo'}"></h1>
     <hr>
     <form
+            th:with="actionUrl=${isEdit ? '/photos/edit/'+photo.id : '/photos/create'}"
             id="photo-create"
             method="POST"
             th:action="@{${actionUrl}}"
