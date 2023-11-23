@@ -33,4 +33,12 @@ public class PhotoService {
             throw new PhotoNotFoundException("Photo with id " + id + " not found!");
         }
     }
+
+    public Photo createPhoto(Photo photo) throws RuntimeException {
+        try {
+            return photoRepository.save(photo);
+        } catch (RuntimeException e) {
+            throw new RuntimeException();
+        }
+    }
 }

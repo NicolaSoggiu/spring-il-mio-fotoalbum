@@ -4,7 +4,11 @@
 <body>
 <nav th:replace="~{fragments/navbar :: topNavbar('photos')}"></nav>
     <div class="container">
+        <div th:replace="fragments/components :: message"></div>
         <h1 class="text-danger">Homepage</h1>
+        <div class="my-3">
+            <a th:href="@{/photos/create}" class="btn btn-secondary">Add new photo</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
