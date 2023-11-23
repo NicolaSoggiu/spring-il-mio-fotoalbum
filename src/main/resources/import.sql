@@ -4,3 +4,6 @@ INSERT INTO photos (title, description, url) VALUES('Montagna', 'Vista innevata'
 INSERT INTO categories(name) VALUES('mare');
 INSERT INTO categories(name) VALUES('montagna');
 INSERT INTO categories(name) VALUES('città');
+
+INSERT INTO photos_categories(photo_id, categories_id) VALUES(1,1);
+INSERT INTO photos_categories(photo_id, categories_id) VALUES(2,3);

@@ -4,14 +4,21 @@
     <body>
     <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
     <div class="container" th:object="${photo}">
-        <div class="d-flex justify-content-center">
-            <div class="card mt-5" style="width: 18rem;">
+        <div class="d-flex mt-5">
+            <div class="card" style="width: 18rem;">
                 <img class="card-img-top" th:src="*{url}" alt="url">
                 <div class="card-body">
                     <h5 class="card-title" th:text="*{title}"></h5>
                     <p class="card-text" th:text="*{description}"></p>
                     <a class="btn btn-secondary" th:href="@{/photos}" title="index">Back to list</a>
                 </div>
+            </div>
+            <div class="mx-5">
+                <h3>Categories</h3>
+                <ul th:if="*{categories.size() > 0}">
+                    <li th:each="categoryObj : *{categories}" th:text="${categoryObj.name}"></li>
+                </ul>
+                <div th:unless="*{categories.size() > 0}" class="alert alert-info">The list is empty</div>
             </div>
         </div>
     </div>
