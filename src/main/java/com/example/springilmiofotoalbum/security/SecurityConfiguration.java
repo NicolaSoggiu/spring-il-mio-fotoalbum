@@ -31,11 +31,16 @@ public class SecurityConfiguration {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // le rotte /categories, /borrowings e /users solo per ADMIN
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/photos", "/photos/**").hasAuthority("ADMIN")
+                .requestMatchers("/categories").hasAuthority("ADMIN")
+                .requestMatchers("/users").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/photos/**").hasAuthority("ADMIN")
+                .requestMatchers("/photos", "/photos/**").hasAnyAuthority("ADMIN", "USER")
                 .requestMatchers("/**").permitAll()
-                .and().formLogin().and().logout();
+                .and().formLogin()
+                .and().logout();
         http.csrf().disable();
         return http.build();
     }
