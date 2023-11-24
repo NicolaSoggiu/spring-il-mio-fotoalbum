@@ -2,6 +2,7 @@ package com.example.springilmiofotoalbum.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -14,10 +15,15 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Title must not be blank!")
+    @Size(max = 255, message = "Length must be less than 255!")
+    @Column(unique = true)
     private String title;
     @NotBlank(message = "Description must not be blank!")
+    @Size(max = 255, message = "Length must be less than 255!")
+    @Column(nullable = false)
     private String description;
     @NotBlank(message = "Url must not be blank!")
+    @Column(nullable = false)
     private String url;
     private Boolean visible = false;
     @CreationTimestamp

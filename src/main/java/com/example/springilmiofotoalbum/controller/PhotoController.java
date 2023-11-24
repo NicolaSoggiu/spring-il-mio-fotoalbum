@@ -2,6 +2,7 @@ package com.example.springilmiofotoalbum.controller;
 
 import com.example.springilmiofotoalbum.exception.PhotoNameUniqueException;
 import com.example.springilmiofotoalbum.exception.PhotoNotFoundException;
+import com.example.springilmiofotoalbum.model.Category;
 import com.example.springilmiofotoalbum.model.Photo;
 import com.example.springilmiofotoalbum.service.CategoryService;
 import com.example.springilmiofotoalbum.service.PhotoService;
@@ -19,6 +20,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.NameNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -54,15 +57,18 @@ public class PhotoController {
     }
 
     @PostMapping("/create")
-    public String doCreate(@Valid @ModelAttribute("photos") Photo formPhoto, BindingResult bindingResult) {
+    public String doCreate(@Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryService.getAll());
             return "photos/form";
         }
         try {
             Photo savedPhoto = photoService.createPhoto(formPhoto);
             return "redirect:/photos/show/" + savedPhoto.getId();
-        } catch (RuntimeException e) {
-            throw new RuntimeException();
+        } catch (PhotoNotFoundException e) {
+            bindingResult.addError(new FieldError("photo", "title", e.getMessage(), false, null, null,
+                    "Title must be unique"));
+            return "photos/form";
         }
     }
 
