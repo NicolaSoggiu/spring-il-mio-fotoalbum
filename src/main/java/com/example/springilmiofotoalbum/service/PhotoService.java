@@ -16,7 +16,7 @@ import java.util.Optional;
 public class PhotoService {
 
     @Autowired
-    PhotoRepository photoRepository;
+    private PhotoRepository photoRepository;
 
     public List<Photo> getPhotoList(Optional<String> search) {
         if (search.isPresent()) {
@@ -46,6 +46,7 @@ public class PhotoService {
     public Photo editPhoto(Photo photo) throws PhotoNotFoundException {
         Photo photoToEdit = getPhotoById(photo.getId());
         photoToEdit.setTitle(photo.getTitle());
+        photoToEdit.setVisible(photo.getVisible());
         photoToEdit.setDescription(photo.getDescription());
         photoToEdit.setUrl(photo.getUrl());
         photoToEdit.setCategories(photo.getCategories());
@@ -55,4 +56,5 @@ public class PhotoService {
     public void deletePhoto(Integer id) {
         photoRepository.deleteById(id);
     }
+
 }

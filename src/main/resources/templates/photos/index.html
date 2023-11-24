@@ -3,9 +3,20 @@
 <head th:insert="~{fragments/resources :: headResources('Photo List')}"></head>
 <body>
 <nav th:replace="~{fragments/navbar :: topNavbar('photos')}"></nav>
-    <div class="container">
+    <div class="container" th:if="${photoList.size() > 0}">
         <div th:replace="fragments/components :: message"></div>
         <h1 class="text-danger">Homepage</h1>
+        <form th:action="@{/photos}" method="GET" class="w-50">
+            <div class="input-group">
+                <input
+                        type="text"
+                        placeholder="Search photo by name"
+                        class="form-control" name="search"
+                        th:value="${param.search}"
+                >
+                <button class="btn btn-secondary" type="submit">Search</button>
+            </div>
+        </form>
         <div class="my-3">
             <a th:href="@{/photos/create}" class="btn btn-secondary">Add new photo</a>
         </div>
@@ -41,5 +52,6 @@
             </tbody>
         </table>
     </div>
+    <div th:unless="${photoList.size() > 0}" class="container mt-2"><h1>No photo</h1></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.springilmiofotoalbum.service;
 
 import com.example.springilmiofotoalbum.exception.CategoryNameUniqueException;
+import com.example.springilmiofotoalbum.exception.CategoryNotFoundException;
 import com.example.springilmiofotoalbum.model.Category;
 import com.example.springilmiofotoalbum.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 public class CategoryService {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public List<Category> getAll() {
         return categoryRepository.findByOrderByName();
@@ -22,7 +23,16 @@ public class CategoryService {
         if (categoryRepository.existsByName(category.getName())) {
             throw new CategoryNameUniqueException(category.getName());
         }
-        category.setName(category.getName());
+        category.setName(category.getName().toLowerCase());
         return categoryRepository.save(category);
+    }
+
+    public Category getCategory(Integer id) throws CategoryNotFoundException {
+        return categoryRepository.findById(id).orElseThrow(() ->
+                new CategoryNotFoundException("Category with id " + id + " not found!"));
+    }
+
+    public void deleteCategory(Category category) {
+        categoryRepository.delete(category);
     }
 }

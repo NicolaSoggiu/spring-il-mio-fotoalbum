@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Categories')"></head>
+<body>
+<nav th:replace="fragments/navbar :: topNavbar('categories')"></nav>
+<div class="container">
+    <div th:replace="fragments/components :: message"></div>
+    <h1>Categories</h1>
+    <section>
+        <form
+                id="category-form"
+                th:action="@{/categories}"
+                method="POST"
+                th:object="${categoryObj}"
+        >
+            <div class="mb-3"
+                 th:insert="fragments/components :: formField('text', 'Category name', 'name')">
+            </div>
+            <button class="btn btn-primary" type="submit">Add category</button>
+        </form>
+    </section>
+    <section class="mt-4">
+        <ul class="list-group">
+            <li th:each="category : ${categoryList}" class="d-flex justify-content-between list-group-item">
+                <span th:text="${category.name}"></span>
+                <form method="POST" th:action="@{/categories/delete/{id}(id=${category.id})}"
+                      onsubmit="return confirm('Are you sure?')">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
+            </li>
+        </ul>
+    </section>
+</div>
+</body>
+</html>

@@ -109,4 +109,5 @@ public class PhotoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
 }
