@@ -48,7 +48,7 @@ public class CategoryController {
     public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         try {
             Category categoryToDelete = categoryService.getCategory(id);
-            categoryService.deleteCategory(categoryToDelete);
+            categoryService.deleteCategory(categoryToDelete.getId());
             redirectAttributes.addFlashAttribute("message", "Category delete!");
             return "redirect:/categories";
         } catch (CategoryNotFoundException e) {

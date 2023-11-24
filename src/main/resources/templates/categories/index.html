@@ -19,7 +19,7 @@
             <button class="btn btn-primary" type="submit">Add category</button>
         </form>
     </section>
-    <section class="mt-4">
+    <section th:if="${categoryList.size() > 0}" class="mt-4">
         <ul class="list-group">
             <li th:each="category : ${categoryList}" class="d-flex justify-content-between list-group-item">
                 <span th:text="${category.name}"></span>
@@ -31,5 +31,6 @@
         </ul>
     </section>
 </div>
+<div th:unless="${categoryList.size() > 0}" class="container mt-2"><h1>No categories</h1></div>
 </body>
 </html>

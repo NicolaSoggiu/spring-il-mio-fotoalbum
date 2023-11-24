@@ -3,10 +3,12 @@ package com.example.springilmiofotoalbum.service;
 import com.example.springilmiofotoalbum.exception.CategoryNameUniqueException;
 import com.example.springilmiofotoalbum.exception.CategoryNotFoundException;
 import com.example.springilmiofotoalbum.model.Category;
+import com.example.springilmiofotoalbum.model.Photo;
 import com.example.springilmiofotoalbum.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +34,16 @@ public class CategoryService {
                 new CategoryNotFoundException("Category with id " + id + " not found!"));
     }
 
-    public void deleteCategory(Category category) {
-        categoryRepository.delete(category);
+    public void deleteCategory(Integer id) {
+        Category categoryDeleted = getCategory(id);
+        List<Photo> photos = categoryDeleted.getPhotos();
+        if (!photos.isEmpty()) {
+            for (Photo photo : photos ) {
+                List<Category> categories = photo.getCategories();
+                categories.remove(categoryDeleted);
+            }
+            categoryDeleted.setPhotos(new ArrayList<>());
+        }
+        categoryRepository.deleteById(id);
     }
 }
