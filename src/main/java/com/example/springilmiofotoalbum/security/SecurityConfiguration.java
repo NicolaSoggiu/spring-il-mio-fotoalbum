@@ -31,7 +31,6 @@ public class SecurityConfiguration {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // le rotte /categories, /borrowings e /users solo per ADMIN
         http
                 .authorizeHttpRequests()
                 .requestMatchers("/categories").hasAuthority("ADMIN")
