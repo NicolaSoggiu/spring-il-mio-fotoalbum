@@ -1,5 +1,6 @@
 // script.js
 const apiUrl = "http://localhost:8080/api/v1/photos";
+const apiContacts = "http://localhost:8080/api/v1/contacts";
 const root = document.getElementById("root");
 
 const renderCategories = (categories) => {
@@ -47,3 +48,30 @@ const getPhotos = async () => {
 };
 
 getPhotos();
+
+document
+  .getElementById("messageForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+    const email = emailInput.value;
+    const message = messageInput.value;
+
+    try {
+      await axios.post(apiContacts, {
+        email,
+        message,
+      });
+
+      emailInput.value = "";
+      messageInput.value = "";
+      successMessage.style.display = "block";
+      this.style.display = "none";
+      setTimeout(function () {
+        successMessage.style.display = "none";
+      }, 5000);
+    } catch (error) {
+      console.error(error);
+    }
+  });
