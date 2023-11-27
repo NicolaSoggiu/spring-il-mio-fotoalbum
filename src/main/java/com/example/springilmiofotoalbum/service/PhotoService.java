@@ -28,6 +28,8 @@ public class PhotoService {
         }
     }
 
+
+
     public List<Photo> getPhotoList() {
         return photoRepository.findAll();
     }
