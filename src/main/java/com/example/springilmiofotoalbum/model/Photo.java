@@ -30,7 +30,6 @@ public class Photo {
     @CreationTimestamp
     private LocalDate createdAt;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Category> categories;
 
     public Integer getId() {
