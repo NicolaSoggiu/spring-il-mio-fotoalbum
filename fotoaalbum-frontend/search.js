@@ -41,7 +41,8 @@ function updatePhotoList(data) {
 }
 
 function generateCard(element) {
-  return `
+  if (element.visible) {
+    return `
       <div class="card shadow h-100">
         <img src="${
           element.url
@@ -53,4 +54,11 @@ function generateCard(element) {
         </div>
       </div>
     `;
+  } else {
+    return `
+    <div class="card shadow h-100 d-flex justify-content-center align-items-center">
+      <h3 class="p-5">Photo not available</h3>
+    </div>
+  `;
+  }
 }
