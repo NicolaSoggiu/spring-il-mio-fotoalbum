@@ -17,17 +17,7 @@ const renderCategories = (categories) => {
 };
 
 const renderPhoto = (element) => {
-  return `
-    <div class="card shadow h-100">
-      <img src="${
-        element.url
-      }" class="card-img-top" style="height: 250px;" alt="${element.title}">
-      <div class="card-body">
-        <h5 class="card-title">${element.title}</h5>
-        <p class="card-text">${element.description}</p>
-        <div class="card-footer">${renderCategories(element.categories)}</div>
-      </div>
-    </div>`;
+  return generateCard(element);
 };
 
 const renderPhotoList = (data) => {
@@ -35,7 +25,7 @@ const renderPhotoList = (data) => {
   if (data.length > 0) {
     content = '<div class="row">';
     data.forEach((element) => {
-      content += '<div class="col-3">';
+      content += '<div class="col-3 mb-4">';
       content += renderPhoto(element);
       content += "</div>";
     });
